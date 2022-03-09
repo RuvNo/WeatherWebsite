@@ -9,6 +9,8 @@ const SearchBar = () => {
         'Berlin',
         'Münster',
         'Hamburg',
+        'Worms',
+        'Hannover'
     ]
 
     const handleInputChange = (event) => {
@@ -16,10 +18,19 @@ const SearchBar = () => {
         setSearchValue(event.target.value)
     }
 
+    const filteredCityList = cityList.filter((city) => city.includes(searchValue))
+
+    const shouldDisplayButton = searchValue.length > 0
+
+    const handleClearClick = () => {
+        setSearchValue("")
+    }
+
     return (
         <div>
             <input type="text" value={searchValue} onChange={handleInputChange} />
-            {cityList.map((city) => {
+            {shouldDisplayButton && <button onClick={handleClearClick}>Clear</button>}
+            {filteredCityList.map((city) => {
                 return <li key={city}>{city}</li>
             })}
         </div>
