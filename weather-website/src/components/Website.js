@@ -1,5 +1,5 @@
 import React from 'react'
-import LocationButton from './LocationButtons/LocationButtons'
+import SearchBar from './SearchBar/SearchBar'
 
 
 const Website = () => {
@@ -7,7 +7,7 @@ const Website = () => {
     return (
         <div>
             <div>Hallo</div>
-            <LocationButton />
+            <SearchBar />
         </div>
         
     )
