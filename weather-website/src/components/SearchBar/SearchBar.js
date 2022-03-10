@@ -13,7 +13,6 @@ const SearchBar = (props) => {
 
     const handleClearClick = () => {
         props.setValue("")
-        
     }
 
     useEffect(() => {

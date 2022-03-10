@@ -5,17 +5,15 @@ import OptionButton from './OptionButton/OptionButton'
 import cityAndCountryNames from '../assets/CityNames'
 import '../styles/global.css'
 
-// 5. Hübsch machen
-// 7. Bei SearchBar sollte das Value nur gesplittet werden, wenn Koordinaten angegeben sind
-
 const Website = () => {
-    // document.getElementById("root").classList.add("x")
-    const [cityObj, setCityObj] = useState([]) // Das ist, um die Wetter-API auszuwerden
-    const [searchValue, setSearchValue] = useState("") // Das hängt mit der SearchBar zusammen
+    const [cityObj, setCityObj] = useState([])
+    const [searchValue, setSearchValue] = useState("")
     const [lat, setLat] = useState(0)
     const [long, setLong] = useState(0)
     const [latCheck, setLatCheck] = useState(0)
-    const [longCheck, setLongCheck] = useState(0)  
+    const [longCheck, setLongCheck] = useState(0)
+    
+    let weatherList = ["sun", "cloud", "rain", "thunder", "clear"]
      
     useEffect(() => {
         if((longCheck || latCheck) && document.getElementById("searchType").textContent === "Search Type: City") {
@@ -40,6 +38,25 @@ const Website = () => {
                 }
                 cityInformation[1] = cityInformation[1] + " °C"
                 setCityObj(cityInformation)
+                // for(let i = 0; i < weatherList.length; i++) {
+                //     if(cityInformation[2].includes(weatherList[i])) {
+                //         if(i===0) {
+                //             document.getElementById("root").classList.add("sunshine")
+                //         }
+                //         if(i===1) {
+                //             document.getElementById("root").classList.add("cloudy")
+                //         }
+                //         if(i===2) {
+                //             document.getElementById("root").classList.add("rain")
+                //         }
+                //         if(i===3) {
+                //             document.getElementById("root").classList.add("clearSky")
+                //         }
+                //         if(i===4) {
+                //             document.getElementById("root").classList.add("sunshine")
+                //         }
+                //     }
+                // }
                 document.getElementById("lat").textContent = "Lat: " + latCheck + "    Lon: " + longCheck
             });    
         }           
@@ -55,11 +72,10 @@ const Website = () => {
         <div>
             <div id="searchType">Search Type: City</div>
             <div id="geoLocationWarning"></div>
-            
             <div className="buttonsGroup">
                 <div className="optionButtonsGroup">
-                    <OptionButton name={"Coordinates"} />
-                    <OptionButton name={"City"} />
+                    <OptionButton name={"Coordinates"} setSearchValue={setSearchValue} />
+                    <OptionButton name={"City"} setSearchValue={setSearchValue} />
                     <OptionButton name={"myLocation"} setSearchValue={setSearchValue} setLat={setLat} setLong={setLong}/>
                 </div>
                 <div className="searchButtonGroup">

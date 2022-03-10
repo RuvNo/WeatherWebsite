@@ -16,6 +16,26 @@
   color: transparent;
 }
 
+/* .cloudy {
+  background: url("../assets/cloudy.jpg") no-repeat center center/cover;
+}
+
+.rain {
+  background: url("../assets/rain.jpg") no-repeat center center/cover;
+}
+
+.sunshine {
+  background: url("../assets/sunshine.jpg") no-repeat center center/cover;
+}
+
+.clearSky {
+  background: url("../assets/clear-sky.jpg") no-repeat center center/cover;
+}
+
+.thunderStorm {
+  background: url("../assets/thunderstorm.jpg") no-repeat center center/cover;
+} */
+
 #searchType {
   color:transparent;
 }

@@ -29,6 +29,7 @@ const OptionButton = (props) => {
             geoLocation()
         }
         document.getElementById(props.name).classList.add("clicked")
+        props.setSearchValue("")
     }
     
     return (
