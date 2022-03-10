@@ -3,12 +3,13 @@ import SearchBar from './SearchBar/SearchBar'
 import Displays from './Display/Display'
 import OptionButton from './OptionButton/OptionButton'
 import cityAndCountryNames from '../assets/CityNames'
+import '../styles/global.css'
 
 // 5. Hübsch machen
 // 7. Bei SearchBar sollte das Value nur gesplittet werden, wenn Koordinaten angegeben sind
 
 const Website = () => {
-
+    // document.getElementById("root").classList.add("x")
     const [cityObj, setCityObj] = useState([]) // Das ist, um die Wetter-API auszuwerden
     const [searchValue, setSearchValue] = useState("") // Das hängt mit der SearchBar zusammen
     const [lat, setLat] = useState(0)
@@ -33,18 +34,20 @@ const Website = () => {
             .then(res=>res.json())
             .then((cityJSON) => {
                 console.log(cityJSON)
-                const cityInformation = [cityJSON.name, cityJSON.main.temp, cityJSON.weather[0].description]
+                const cityInformation = [cityJSON.name, cityJSON.main.temp, cityJSON.weather[0].description, cityJSON.wind.speed, cityJSON.main.feels_like, cityJSON.main.humidity]
                 if(document.getElementById("searchType").textContent === "Search Type: City") {
                     cityInformation[0] = searchValue
                 }
+                cityInformation[1] = cityInformation[1] + " °C"
                 setCityObj(cityInformation)
+                document.getElementById("lat").textContent = "Lat: " + latCheck + "    Lon: " + longCheck
             });    
         }           
     }, [longCheck])
 
     function searchCity() {
         setLatCheck(lat)
-        setLongCheck(long)
+        setLongCheck(long)        
     }
     
     let val = ""
@@ -52,16 +55,45 @@ const Website = () => {
         <div>
             <div id="searchType">Search Type: City</div>
             <div id="geoLocationWarning"></div>
-            <SearchBar cityList={cityAndCountryNames} value={searchValue} setValue={setSearchValue} setLat={setLat} setLong={setLong}/>
-            <button onClick={searchCity}>Get Weather!</button>
-            <OptionButton name={"Coordinates"} />
-            <OptionButton name={"City"} />
-            <OptionButton name={"myLocation"} setSearchValue={setSearchValue} setLat={setLat} setLong={setLong}/>
-            <Displays feature={cityObj[0]}/>
-            <Displays feature={cityObj[1]}/>
-            <Displays feature={cityObj[2]}/>
-            <div id="Lat">Lat: {latCheck}</div>
-            <div id="Long">Long: {longCheck}</div>
+            
+            <div className="buttonsGroup">
+                <div className="optionButtonsGroup">
+                    <OptionButton name={"Coordinates"} />
+                    <OptionButton name={"City"} />
+                    <OptionButton name={"myLocation"} setSearchValue={setSearchValue} setLat={setLat} setLong={setLong}/>
+                </div>
+                <div className="searchButtonGroup">
+                    <button className="searchButton" onClick={searchCity}>Get Weather!</button>
+                </div>
+            </div>
+            
+            <SearchBar cityList={cityAndCountryNames} value={searchValue} setValue={setSearchValue} setLat={setLat} setLong={setLong} />
+            {latCheck &&
+            <div className="middle">
+                <Displays feature={cityObj[0]} />
+                <Displays feature={cityObj[1]} />
+                <Displays feature={cityObj[2]} />
+                <div className="latClass" id="lat"></div>
+            </div>
+            }
+            
+            {latCheck &&
+            <div className="bottom">
+                <div className="wind speed">
+                    <Displays className="bold" feature={cityObj[3]} />
+                    <Displays feature={"wind speed"} />
+                </div>
+                <div className="feels like">
+                    <Displays className="bold" feature={cityObj[4]} />
+                    <Displays feature={"feels like"} />
+                </div>
+                <div className="humidity">
+                    <Displays className="bold" feature={cityObj[5]} />
+                    <Displays feature={"humidity"} />
+                </div>
+            </div>
+            }
+            
         </div>
         
     )

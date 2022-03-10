@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './OptionButton.css'
 
 const OptionButton = (props) => {
 
@@ -20,15 +21,19 @@ const OptionButton = (props) => {
     }
 
     function updateName() {
+        document.getElementById("Coordinates").classList.remove("clicked")
+        document.getElementById("City").classList.remove("clicked")
+        document.getElementById("myLocation").classList.remove("clicked")
         document.getElementById("searchType").textContent = "Search Type: " + props.name
         if(props.name==="myLocation") {
             geoLocation()
         }
+        document.getElementById(props.name).classList.add("clicked")
     }
     
     return (
         <div>
-            <button onClick={updateName}>{props.name}</button>
+            <button id={props.name} className={"button"} onClick={updateName}>{props.name}</button>
         </div>
     )
 }
