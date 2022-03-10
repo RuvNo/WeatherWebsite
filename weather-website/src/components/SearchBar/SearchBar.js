@@ -2,36 +2,34 @@ import React, {useEffect, useState} from 'react';
 
 const SearchBar = (props) => {
 
-    const [searchValue, setSearchValue] = useState("")
-
     const handleInputChange = (event) => {
-        setSearchValue(event.target.value)
+        props.setValue(event.target.value)
     }
 
-    let filteredCityList = props.cityList.filter((city) => city[0].includes(searchValue))
+    let filteredCityList = props.cityList.filter((city) => city[0].includes(props.value))
     filteredCityList = filteredCityList.sort(() => Math.random() - 0.5).slice(0,10)
 
-    const shouldDisplayButton = searchValue.length > 0
+    const shouldDisplayButtonAndCities = props.value.length > 0
 
     const handleClearClick = () => {
-        setSearchValue("")
+        props.setValue("")
+        
     }
 
     useEffect(() => {
-        let arr = searchValue.replace(" ","").split(",")
-        document.getElementById("Lat").textContent = arr[0]
-        document.getElementById("Long").textContent = arr[1]
+        if(document.getElementById("searchType").textContent !== "Search Type: myLocation") {
+            let arr = props.value.replace(" ","").split(",")
+            props.setLat(arr[0])
+            props.setLong(arr[1])
+        }
+        
     })
-
-    // Abgesehen davon muss ich dafür sorgen, dass er nur versucht zu splitten etc (mit dem ","), wenn Koordinaten ausgesucht ist
-
 
     return (
         <div>
-            <input type="text" id="SearchValue" value={searchValue} onChange={handleInputChange} />
-            <div id = "SearchValue2">{searchValue}</div>
-            {shouldDisplayButton && <button onClick={handleClearClick}>Clear</button>}
-            {shouldDisplayButton && filteredCityList.map((city) => {
+            <input type="text" id="SearchValue" value={props.value} onChange={handleInputChange} />
+            {shouldDisplayButtonAndCities && <button onClick={handleClearClick}>Clear</button>}
+            {shouldDisplayButtonAndCities && filteredCityList.map((city) => {
                 return <li key={city}>{city}</li>
             })}           
         </div>
