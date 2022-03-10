@@ -11,6 +11,8 @@ const Website = () => {
     const [searchValue, setSearchValue] = useState("empty")
     const [lat, setLat] = useState(0)
     const [long, setLong] = useState(0)
+    const [newLat, setNewLat] = useState(0)
+    const [newLong, setNewLong] = useState(0)
        
     useEffect(() => {
         if(long !== 0 || lat !== 0) {
@@ -20,16 +22,6 @@ const Website = () => {
                     const cityInformation = [cityJSON.name, cityJSON.main.temp]
                     setCityObj(cityInformation)
                 });
-            fetch('http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=5576b5d04897ed986fb56430d37779ec')
-                .then(res=>res.json())
-                .then((cityJSON) =>    {        
-                    const cityInformation2 = [cityJSON[0].lat, cityJSON[0].lon]
-                    document.getElementById("newLat").textContent = cityInformation2[0]
-                    document.getElementById("newLon").textContent = cityInformation2[1]
-                    console.log(document.getElementById("newLat").textContent)
-                    setCityObj2(cityInformation2)
-                    
-                });
             // fetch('https://api.openweathermap.org/img/w/10d.png')
             //     .then(res=>res.json())
             //     .then((test) => setSearchValue(test))
@@ -38,17 +30,39 @@ const Website = () => {
             
     }, [long])
 
+    useEffect(() => {
+        // Hier sollte man nochmal schauen, das mit dem newLat und newLon ist alles super doppelt gemoppelt
+        // Also hier gibt es einen effizienteren Weg, das ganze darzustellen
+        if(newLong !== 0 || newLat !== 0) {
+            fetch('http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=5576b5d04897ed986fb56430d37779ec')
+                .then(res=>res.json())
+                .then((cityJSON) =>    {        
+                    const cityInformation2 = [cityJSON[0].lat, cityJSON[0].lon]
+                    document.getElementById("newLat").innerHTML = cityInformation2[0]
+                    document.getElementById("newLon").innerHTML = cityInformation2[1]
+                    setNewLat(document.getElementById("newLat").innerHTML)
+                    setNewLong(document.getElementById("newLon").innerHTML)
+                    setCityObj2(cityInformation2)
+                });
+            if(newLong !== "" && newLat !=="") {
+            fetch('https://api.openweathermap.org/data/2.5/weather?lat=' + newLat + '&lon=' + newLong + '&appid=5576b5d04897ed986fb56430d37779ec')
+                .then(res=>res.json())
+                .then((cityJSON) => {
+                    const cityInformation = [cityJSON.name, cityJSON.main.temp]
+                    setCityObj(cityInformation)
+                });
+            }
+        }
+            
+    }, [newLong])
+
     function searchCity() {
         if (document.getElementById("searchType").textContent === "Search Type: Coordinates") {
-            console.log("YES!")
             setLat(document.getElementById("Lat").innerHTML)
             setLong(document.getElementById("Long").innerHTML)
         } else if (document.getElementById("searchType").textContent === "Search Type: City") {
-            console.log("LONDON")
-            console.log(document.getElementById("newLat").textContent)
-            console.log(document.getElementById("newLon").textContent)
-            setLat(document.getElementById("newLat").innerHTML)
-            setLong(document.getElementById("newLon").innerHTML)
+            setNewLat(document.getElementById("newLat").innerHTML)
+            setNewLong(document.getElementById("newLon").innerHTML)
         } else {
             console.log("WHY")
         }
