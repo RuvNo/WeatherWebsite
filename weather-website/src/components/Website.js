@@ -2,14 +2,9 @@ import React, { useEffect, useState } from 'react'
 import SearchBar from './SearchBar/SearchBar'
 import Displays from './Display/Display'
 import OptionButton from './OptionButton/OptionButton'
-import cityAndCountryNames from './CityNames/CityNames'
-import SearchButton from './SearchButton/SearchButton'
+import cityAndCountryNames from '../assets/CityNames'
 
-// 1. Aktuell funktioniert es nicht, erst eine Sache zu suchen und dann eine andere (also erst Wuppertal und dann Köln z.B.)
-// 3. Das Interface muss aufgeräumt werden
-// 4. Import von Icons
 // 5. Hübsch machen
-// 6. zusätzliche Feature?! 
 // 7. Bei SearchBar sollte das Value nur gesplittet werden, wenn Koordinaten angegeben sind
 
 const Website = () => {
@@ -45,8 +40,6 @@ const Website = () => {
                 setCityObj(cityInformation)
             });    
         }           
-        
-            
     }, [longCheck])
 
     function searchCity() {
