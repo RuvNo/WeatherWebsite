@@ -34,7 +34,7 @@ const OptionButton = (props) => {
     
     return (
         <div>
-            <button id={props.name} className={"button"} onClick={updateName}>{props.name}</button>
+            <button id={props.name} className={props.className} onClick={updateName}>{props.name}</button>
         </div>
     )
 }

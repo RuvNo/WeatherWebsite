@@ -17,10 +17,6 @@
   color: transparent;
 }
 
-.cloud {
-  background: url("../assets/cloudy.webp") no-repeat center center/cover;
-}
-
 .rain {
   background: url("../assets/rain.jpg") no-repeat center center/cover;
 }
@@ -38,7 +34,16 @@
 }
 
 .scattered {
-  background: url("../assets/scattered-clouds.webp") no-repeat center center/cover;
+  background: url("../assets/scattered-clouds.webp") no-repeat center
+    center/cover;
+}
+
+.overcast {
+  background: url("../assets/cloudy.webp") no-repeat center center/cover;
+}
+
+.few {
+  background: url("../assets/few-clouds.jpg") no-repeat center center/cover;
 }
 
 #searchType {

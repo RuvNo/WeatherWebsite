@@ -35,8 +35,9 @@
 }
 
 #suggestions {
-  width: 55%;
-  color: white;
+  width: 51%;
+  color: black;
+
   text-align: left;
   margin: auto;
   font-size: small;

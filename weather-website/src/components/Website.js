@@ -13,9 +13,10 @@ const Website = () => {
     const [latCheck, setLatCheck] = useState(0)
     const [longCheck, setLongCheck] = useState(0)
     const [lastSuggestion, setLastSuggestion] = useState("")
+    const [showComponents, setShowComponents] = useState(0)
     
-    let weatherList = ["sun", "cloud", "rain", "thunder", "clear", "scattered"]
-     
+    let weatherList = ["sun", "cloud", "rain", "thunder", "clear", "few", "scattered", "overcast"]
+
     let filteredCityList = cityAndCountryNames.filter((city) => city.includes(searchValue))
     filteredCityList = filteredCityList.sort(() => Math.random() - 0.5).slice(0,5)
 
@@ -35,16 +36,13 @@ const Website = () => {
             fetch('https://api.openweathermap.org/data/2.5/weather?lat=' + latCheck + '&lon=' + longCheck + '&units=metric&appid=5576b5d04897ed986fb56430d37779ec')
             .then(res=>res.json())
             .then((cityJSON) => {
-                console.log(cityJSON)
                 const cityInformation = [cityJSON.name, cityJSON.main.temp, cityJSON.weather[0].description, cityJSON.wind.speed, cityJSON.main.feels_like, cityJSON.main.humidity, cityJSON.sys.country]
-                if(document.getElementById("searchType").textContent === "Search Type: City") {
+                if(document.getElementById("searchType").textContent === "Search Type: City" && filteredCityList.length === 1) {
                     cityInformation[0] = lastSuggestion
                 } else if (!searchValue.includes(",")) {
-                    cityInformation[0] = searchValue + " " + cityInformation[6]
+                    cityInformation[0] = cityInformation[0] + " " + "(" + cityInformation[6] + ")"
                 }
                 cityInformation[1] = cityInformation[1] + " °C"
-                cityInformation[6] = "(" + cityInformation[6] + ")"
-                
                 setCityObj(cityInformation)
                 for(let i = 0; i < weatherList.length; i++) {
                     
@@ -56,7 +54,8 @@ const Website = () => {
                     }
                 }
                 document.getElementById("lat").textContent = "Lat: " + latCheck + "    Lon: " + longCheck
-            });    
+            });
+            setShowComponents(1)    
         }           
     }, [longCheck])
 
@@ -76,9 +75,9 @@ const Website = () => {
             <div id="geoLocationWarning"></div>
             <div className="buttonsGroup">
                 <div className="optionButtonsGroup">
-                    <OptionButton name={"Coordinates"} setSearchValue={setSearchValue} />
-                    <OptionButton name={"City"} setSearchValue={setSearchValue} />
-                    <OptionButton name={"myLocation"} setSearchValue={setSearchValue} setLat={setLat} setLong={setLong}/>
+                    <OptionButton className={"button"} name={"Coordinates"} setSearchValue={setSearchValue} />
+                    <OptionButton className={"button clicked"} name={"City"} setSearchValue={setSearchValue} />
+                    <OptionButton className={"button"} name={"myLocation"} setSearchValue={setSearchValue} setLat={setLat} setLong={setLong} />
                 </div>
                 <div className="searchButtonGroup">
                     <button className="searchButton" onClick={searchCity}>Get Weather!</button>
@@ -86,7 +85,7 @@ const Website = () => {
             </div>
             
             <SearchBar cityList={filteredCityList} value={searchValue} setValue={setSearchValue} setLat={setLat} setLong={setLong} setLastSuggestion={setLastSuggestion}/>
-            {latCheck &&
+            {showComponents &&
             <div className="middle">
                 <Displays feature={cityObj[0]} />
                 <Displays feature={cityObj[1]} />
@@ -95,7 +94,7 @@ const Website = () => {
             </div>
             }
             
-            {latCheck &&
+            {showComponents &&
             <div className="bottom">
                 <div className="wind speed">
                     <Displays className="bold" feature={cityObj[3]} />
