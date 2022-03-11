@@ -6,9 +6,6 @@ const SearchBar = (props) => {
         props.setValue(event.target.value)
     }
 
-    let filteredCityList = props.cityList.filter((city) => city[0].includes(props.value))
-    filteredCityList = filteredCityList.sort(() => Math.random() - 0.5).slice(0,5)
-
     const shouldDisplayButtonAndCities = props.value.length > 0
 
     const handleClearClick = () => {
@@ -37,7 +34,7 @@ const SearchBar = (props) => {
                 <input className="search" placeholder="Search" type="text" id="SearchValue" value={props.value} onChange={handleInputChange} />
                 <button id="clearButton" className="clearButton empty" onClick={handleClearClick}>Clear</button>
             </div>
-            {shouldDisplayButtonAndCities && filteredCityList.map((city) => {
+            {shouldDisplayButtonAndCities && props.cityList.map((city) => {
                 return <div id="suggestions" key={city}>{city}</div>
             })}         
         </div>

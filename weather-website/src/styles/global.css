@@ -5,8 +5,9 @@
   font-family: "Open Sans", serif;
 }
 
-#root {
-  background: url("../assets/cloudy-sunshine.jpg") no-repeat center center/cover;
+.root {
+  background: url("../assets/standard-sunset.webp") no-repeat center
+    center/cover;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -16,28 +17,32 @@
   color: transparent;
 }
 
-/* .cloudy {
-  background: url("../assets/cloudy.jpg") no-repeat center center/cover;
+.cloud {
+  background: url("../assets/cloudy.webp") no-repeat center center/cover;
 }
 
 .rain {
   background: url("../assets/rain.jpg") no-repeat center center/cover;
 }
 
-.sunshine {
+.sun {
   background: url("../assets/sunshine.jpg") no-repeat center center/cover;
 }
 
-.clearSky {
+.clear {
   background: url("../assets/clear-sky.jpg") no-repeat center center/cover;
 }
 
-.thunderStorm {
+.thunder {
   background: url("../assets/thunderstorm.jpg") no-repeat center center/cover;
-} */
+}
+
+.scattered {
+  background: url("../assets/scattered-clouds.webp") no-repeat center center/cover;
+}
 
 #searchType {
-  color:transparent;
+  color: transparent;
 }
 
 .buttonsGroup {
@@ -99,7 +104,10 @@
   color: #ffffff;
   cursor: pointer;
   display: inline-flex;
-  font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto,
+    "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell,
+    "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Lucida Grande", Helvetica, Arial, sans-serif;
   font-size: 16px;
   font-weight: 600;
   justify-content: center;
@@ -114,7 +122,9 @@
   padding-right: 20px;
   text-align: center;
   touch-action: manipulation;
-  transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+  transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s,
+    box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s,
+    color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
   user-select: none;
   -webkit-user-select: none;
   vertical-align: middle;

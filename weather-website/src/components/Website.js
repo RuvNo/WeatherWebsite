@@ -12,9 +12,13 @@ const Website = () => {
     const [long, setLong] = useState(0)
     const [latCheck, setLatCheck] = useState(0)
     const [longCheck, setLongCheck] = useState(0)
+    const [lastSuggestion, setLastSuggestion] = useState("")
     
-    let weatherList = ["sun", "cloud", "rain", "thunder", "clear"]
+    let weatherList = ["sun", "cloud", "rain", "thunder", "clear", "scattered"]
      
+    let filteredCityList = cityAndCountryNames.filter((city) => city.includes(searchValue))
+    filteredCityList = filteredCityList.sort(() => Math.random() - 0.5).slice(0,5)
+
     useEffect(() => {
         if((longCheck || latCheck) && document.getElementById("searchType").textContent === "Search Type: City") {
             fetch('http://api.openweathermap.org/geo/1.0/direct?q=' + searchValue + '&limit=5&appid=5576b5d04897ed986fb56430d37779ec')
@@ -32,42 +36,40 @@ const Website = () => {
             .then(res=>res.json())
             .then((cityJSON) => {
                 console.log(cityJSON)
-                const cityInformation = [cityJSON.name, cityJSON.main.temp, cityJSON.weather[0].description, cityJSON.wind.speed, cityJSON.main.feels_like, cityJSON.main.humidity]
+                const cityInformation = [cityJSON.name, cityJSON.main.temp, cityJSON.weather[0].description, cityJSON.wind.speed, cityJSON.main.feels_like, cityJSON.main.humidity, cityJSON.sys.country]
                 if(document.getElementById("searchType").textContent === "Search Type: City") {
-                    cityInformation[0] = searchValue
+                    cityInformation[0] = lastSuggestion
+                } else if (!searchValue.includes(",")) {
+                    cityInformation[0] = searchValue + " " + cityInformation[6]
                 }
                 cityInformation[1] = cityInformation[1] + " °C"
+                cityInformation[6] = "(" + cityInformation[6] + ")"
+                
                 setCityObj(cityInformation)
-                // for(let i = 0; i < weatherList.length; i++) {
-                //     if(cityInformation[2].includes(weatherList[i])) {
-                //         if(i===0) {
-                //             document.getElementById("root").classList.add("sunshine")
-                //         }
-                //         if(i===1) {
-                //             document.getElementById("root").classList.add("cloudy")
-                //         }
-                //         if(i===2) {
-                //             document.getElementById("root").classList.add("rain")
-                //         }
-                //         if(i===3) {
-                //             document.getElementById("root").classList.add("clearSky")
-                //         }
-                //         if(i===4) {
-                //             document.getElementById("root").classList.add("sunshine")
-                //         }
-                //     }
-                // }
+                for(let i = 0; i < weatherList.length; i++) {
+                    
+                    if (cityInformation[2].includes(weatherList[i])) {
+                        for(let j = 0; j < weatherList.length; j++) {
+                            document.getElementById("root").classList.remove(weatherList[j])
+                        }
+                        document.getElementById("root").classList.add(weatherList[i])
+                    }
+                }
                 document.getElementById("lat").textContent = "Lat: " + latCheck + "    Lon: " + longCheck
             });    
         }           
     }, [longCheck])
 
     function searchCity() {
+        if(filteredCityList.length === 1) {
+            setLastSuggestion(filteredCityList)
+        } else if (searchValue.includes(",")) {
+            setLastSuggestion(searchValue)
+        }
         setLatCheck(lat)
         setLongCheck(long)        
     }
     
-    let val = ""
     return (
         <div>
             <div id="searchType">Search Type: City</div>
@@ -83,7 +85,7 @@ const Website = () => {
                 </div>
             </div>
             
-            <SearchBar cityList={cityAndCountryNames} value={searchValue} setValue={setSearchValue} setLat={setLat} setLong={setLong} />
+            <SearchBar cityList={filteredCityList} value={searchValue} setValue={setSearchValue} setLat={setLat} setLong={setLong} setLastSuggestion={setLastSuggestion}/>
             {latCheck &&
             <div className="middle">
                 <Displays feature={cityObj[0]} />
