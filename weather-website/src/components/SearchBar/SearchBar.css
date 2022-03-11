@@ -50,6 +50,7 @@
   border: 0;
   background: none;
   box-shadow: none;
+  cursor: pointer;
 }
 
 .clearButton.empty {

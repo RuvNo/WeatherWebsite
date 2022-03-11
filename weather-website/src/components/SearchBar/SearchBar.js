@@ -2,12 +2,15 @@ import React, {useEffect, useState} from 'react';
 import './SearchBar.css'
 
 const SearchBar = (props) => {
+    // To account for changes in the input
     const handleInputChange = (event) => {
         props.setValue(event.target.value)
     }
 
+    // To determine whether or not things should be shown
     const shouldDisplayButtonAndCities = props.value.length > 0
 
+    // Clear-Button
     const handleClearClick = () => {
         props.setValue("")
     }
@@ -19,10 +22,10 @@ const SearchBar = (props) => {
             props.setLong(arr[1])
         }
         if(document.getElementById("searchType").textContent === "Search Type: City") {
-            // let arr = props.value.replace(" ","").split(",")
             props.setLat(1)
             props.setLong(1)
         }
+        // Changing appearance of the clear-Button
         if (props.value.length > 0) {
             document.getElementById("clearButton").classList.remove("empty")
         }

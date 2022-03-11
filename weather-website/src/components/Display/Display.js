@@ -4,6 +4,7 @@ import "./Display.css";
 
 const Displays = (props) => {
 
+    // Making the numbers in the bottom-part larger than their descriptions
     let style = {}
     if(props.className) {
         style = {

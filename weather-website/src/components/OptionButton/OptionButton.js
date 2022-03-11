@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './OptionButton.css'
 
 const OptionButton = (props) => {
-
+    // Function if the user clicks "myLocation" to get his geolocation
     function geoLocation() {
         function getLocation() {
             if (navigator.geolocation) {
@@ -17,9 +17,11 @@ const OptionButton = (props) => {
             props.setLong(position.coords.longitude);
             props.setSearchValue(position.coords.latitude + ", " + position.coords.longitude)
         }
+        // Calling the function
         getLocation()
     }
 
+    // Change the states of the Buttons, depending on which one is clicked
     function updateName() {
         document.getElementById("Coordinates").classList.remove("clicked")
         document.getElementById("City").classList.remove("clicked")

@@ -33,6 +33,11 @@
   background: url("../assets/thunderstorm.jpg") no-repeat center center/cover;
 }
 
+.cloud {
+  background: url("../assets/scattered-clouds.webp") no-repeat center
+    center/cover;
+}
+
 .scattered {
   background: url("../assets/scattered-clouds.webp") no-repeat center
     center/cover;
@@ -120,7 +125,7 @@
   max-width: 480px;
   min-height: 40px;
   min-width: 0px;
-  margin: 10px;
+  margin: 30px;
   overflow: hidden;
   padding: 0px;
   padding-left: 20px;
@@ -135,7 +140,3 @@
   vertical-align: middle;
   background-color: #1e8449;
 }
-
-/* #root.x {
-    background: url('../assets/rain.jpg') no-repeat center center/cover;
-} */
