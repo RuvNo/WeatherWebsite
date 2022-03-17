@@ -1,5 +1,9 @@
 # WeatherWebsite
-A Website that uses either your location or coordinates to show you the current weather. Build using JS-UI-Framework React (based on Create-React-App).
+- A Website that uses either your location or coordinates to show you the current weather.
+- Build using JS-UI-Framework React (based on Create-React-App).
+- The Website uses APIs to openweathermap.com.
+- If you want to search your location, you have to allow the Browser to use it.
+
 
 ## Directions
 - Fist, decide whether you want to search a City (Name), Coordinates (Lat/Lon) or your current Location.
